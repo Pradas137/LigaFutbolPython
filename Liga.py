@@ -30,13 +30,13 @@ def PuntosResultados():
 
 def añadirResultados(Liga):
     global dicc
-    for key in Liga:
-        for item in Liga[key]:
+    for Local in Liga:
+        for Visitentes in Liga[Local]:
             reultado = PuntosResultados()
             for puntos in item:
                 dicc={}
                 dicc[puntos] = reultado
-            item.update(dicc)
+            Visitentes.update(dicc)
     return(Liga)
 
 def MostrarResultado(Liga,Datos):
