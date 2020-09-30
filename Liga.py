@@ -1,69 +1,54 @@
 import random
-import operator
-
-
-def partido():
+def Datos():
     file = open("equips.cfg", "r")
     datos = file.read().splitlines()
     file.close()
+    return(datos)
 
-    equipos = []
-    for Local in datos:
-        # print(Local)
-        for Visitantes in datos:
-            # print(Visitantes)
-            if Local != Visitantes:
-                equipos.append(Visitantes)
-                #print(equipos)
-    Liga=[]
-    Ligas ={}
-    for Local in range(0, len(datos)):
-        Lista = []
-        # print(Local)
-        for Visitantes in range(1, len(datos)):
-            # print(Visitantes)
-            diccionario1 = {}
-            diccionario1[equipos[0]] = "none"
-            del equipos[0]
-            Lista.append(diccionario1)
-            # print(List)
-            Ligas[str(datos[Local])] = Lista
+
+def crearLiga(Datos):
+    Lista = []
+    for i in Datos:
+        for j in Datos:
+            if i != j:
+                Lista.append(j)
+    Ligas = {}
+    for i in range(0, len(Datos)):
+        ListaTempo = []
+        for j in range(1, len(Datos)):
+            diccionario = {}
+            diccionario[Lista[0]] = "none"
+            del Lista[0]
+            ListaTempo.append(diccionario)
+            Ligas[str(Datos[i])] = ListaTempo
     return (Ligas)
-
 
 def PuntosResultados():
     puntos1 = random.randint(0, 9)
     puntos2 = random.randint(0, 9)
     return (puntos1, puntos2)
 
-
-def añadiryMostrar(Partidos):
-    diccionario2 = {}
-    for Local in Partidos:
-        # print(Local)
-        for Visitantes in Partidos[Local]:
-            # print(Visitantes)
+def añadirResultados(Liga):
+    global dicc
+    for key in Liga:
+        for item in Liga[key]:
             reultado = PuntosResultados()
-            for puntos in Visitantes:
-                # print(puntos)
-                diccionario2[puntos] = reultado
-            Visitantes.update(diccionario2)
+            for puntos in item:
+                dicc={}
+                dicc[puntos] = reultado
+            item.update(dicc)
+    return(Liga)
 
-    equips = open("equips.cfg", "r")
-    datos = equips.read().splitlines()
-    for j in range(1,len(datos)):
-        datos[j] = {datos[j] : 1}
-    equips.close()
-    for Local in Partidos:
-        # print(local)
-        for pe in Partidos[Local]:
-            # print(pe)
-            for Visitante in pe:
-                #print(Visitante)
-                print("|",Local, "       |     \tcontra      ","|     ", Visitante, "|", pe.get(Visitante))
+def MostrarResultado(Liga,Datos):
+    for j in range(1,len(Datos)):
+        Datos[j] = {Datos[j]: 1}
+    for Local in Liga:
+        for Visitante in Liga[Local]:
+            print("|",Local, "       |     \tcontra      ","|     ", Visitante, "|")
 
     #print(datos)
 
-
-Partidos = partido()
-Liga = añadiryMostrar(Partidos)
+Datos = Datos()
+Liga= crearLiga(Datos)
+añadir=añadirResultados(Liga)
+MostrarResultado(Liga,Datos)
