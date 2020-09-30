@@ -33,7 +33,7 @@ def añadirResultados(Liga):
     for Local in Liga:
         for Visitentes in Liga[Local]:
             reultado = PuntosResultados()
-            for puntos in item:
+            for puntos in Visitentes:
                 dicc={}
                 dicc[puntos] = reultado
             Visitentes.update(dicc)
@@ -46,7 +46,6 @@ def MostrarResultado(Liga,Datos):
         for Visitante in Liga[Local]:
             print("|",Local, "       |     \tcontra      ","|     ", Visitante, "|")
 
-    #print(datos)
 
 Datos = Datos()
 Liga= crearLiga(Datos)
